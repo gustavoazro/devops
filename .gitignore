@@ -1,1 +1,4 @@
 # gitignore
+terraform-provider-aws_v3.39.0_x5
+.*
+!/.gitignore

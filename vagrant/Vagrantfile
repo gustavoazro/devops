@@ -1,0 +1,25 @@
+Vagrant.configure("2") do |config|
+  
+  (1..3).each do |i|
+    config.vm.define "node-#{i}" do |node|
+  
+      node.vm.box = "generic/ubuntu2004"
+      config.vm.hostname = "node-#{i}.local"
+      
+      node.vm.provider :libvirt do |domain|
+        domain.memory = 2048
+        domain.cpus = 2
+        domain.nested = true
+      end
+      
+      config.vm.define :node_net do |node_net|
+        node_net.vm.network :public_network,
+          :dev => "virbr0",
+          :mode => "bridge",
+          :type => "bridge"
+      end
+    end
+  end
+end
+
+
